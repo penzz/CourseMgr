@@ -25,14 +25,23 @@ namespace CourseManageSystem
         /// <param name="e"></param>
         void StudentMain_Load(object sender, EventArgs e)
         {
-            //if (String.IsNullOrEmpty(User.userid))
-            //{
-            //    MessageBox.Show("系统错误");
-            //    Application.Exit();
-            //    return;
-            //}
-            //this.labelUserId.Text = User.userid;
+            if (String.IsNullOrEmpty(User.userid))
+            {
+                MessageBox.Show("系统错误");
+                Application.Exit();
+                return;
+            }
+            this.labelUserId.Text = User.userid;
+            panelLeft.Visible = User.category.Equals("0") ? true : false;
+            panelTLeft.Visible = !panelLeft.Visible;
             foreach (Control ctrl in this.panelLeft.Controls)
+            {
+                if (ctrl is Button)
+                {
+                    ctrl.Click += new EventHandler(btn_Click);
+                }
+            }
+            foreach (Control ctrl in this.panelTLeft.Controls)
             {
                 if (ctrl is Button)
                 {

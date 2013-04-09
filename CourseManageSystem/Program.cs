@@ -13,14 +13,20 @@ namespace CourseManageSystem
         [STAThread]
         static void Main()
         {
+            string dataDir = AppDomain.CurrentDomain.BaseDirectory;
+            if (dataDir.EndsWith("\\bin\\Debug\\") || dataDir.EndsWith("\\bin\\Release\\"))
+            {
+                dataDir = System.IO.Directory.GetParent(dataDir).Parent.Parent.FullName;
+                AppDomain.CurrentDomain.SetData("DataDirectory", dataDir);
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Login login = new Login();
-            //login.ShowDialog();
-            //if (login.DialogResult == DialogResult.OK)
-            //{
-            Application.Run(new StudentMain());
-            //}
+            Login login = new Login();
+            login.ShowDialog();
+            if (login.DialogResult == DialogResult.OK)
+            {
+                Application.Run(new StudentMain());
+            }
         }
     }
 }

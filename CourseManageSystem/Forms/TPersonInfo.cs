@@ -9,21 +9,24 @@ using CourseManageSystem.Common;
 
 namespace CourseManageSystem.Forms
 {
-    public partial class PersonInfo : CourseManageSystem.Common.BasePanelForm
+    public partial class TPersonInfo : CourseManageSystem.Common.BasePanelForm
     {
-        public PersonInfo()
+        public TPersonInfo()
         {
             InitializeComponent();
-            this.Load += new EventHandler(PersonInfo_Load);
+            this.Load+=new EventHandler(TPersonInfo_Load);
         }
 
-        void PersonInfo_Load(object sender, EventArgs e)
+        private void TPersonInfo_Load(object sender, EventArgs e)
         {
-            this.studentInfoTableAdapter.Fill(this.courseMgrDataSet.StudentInfo);
+            // TODO: 这行代码将数据加载到表“courseMgrDataSet.TeacherInfo”中。您可以根据需要移动或删除它。
+            this.teacherInfoTableAdapter.Fill(this.courseMgrDataSet.TeacherInfo);
             this.btnCommit.Click += new EventHandler(btnCommit_Click);
             this.btnUpdatePhoto.Click += new EventHandler(btnUpdatePhoto_Click);
-            this.useridTextBox.Text = User.userid;
+            this.tuseridTextBox.Text = User.userid;
+
         }
+
         /// <summary>
         /// 更新个人照片
         /// </summary>
@@ -35,7 +38,7 @@ namespace CourseManageSystem.Forms
             {
                 Bitmap image = new Bitmap(openFileDialog1.FileName);
                 ClearPhoto();
-                this.photoPictureBox.Image = image;
+                this.tphotoPictureBox.Image = image;
             }
         }
         /// <summary>
@@ -48,7 +51,7 @@ namespace CourseManageSystem.Forms
             this.Validate();
             try
             {
-                this.studentInfoBindingSource.EndEdit();
+                this.teacherInfoBindingSource.EndEdit();
                 this.tableAdapterManager.UpdateAll(this.courseMgrDataSet);
                 ShowMessage("保存成功");
             }
@@ -63,10 +66,10 @@ namespace CourseManageSystem.Forms
         /// </summary>
         private void ClearPhoto()
         {
-            if (this.photoPictureBox.Image != null)
+            if (this.tphotoPictureBox.Image != null)
             {
-                this.photoPictureBox.Image.Dispose();
-                this.photoPictureBox.Image = null;
+                this.tphotoPictureBox.Image.Dispose();
+                this.tphotoPictureBox.Image = null;
             }
         }
     }

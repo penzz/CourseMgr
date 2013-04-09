@@ -16,8 +16,6 @@ namespace CourseManageSystem
     /// </summary>
     public partial class Login : Form
     {
-        CourseMgrDataSet CMDataSet = new CourseMgrDataSet();
-        loginTableAdapter loginAdapter = new loginTableAdapter();
         public Login()
         {
             InitializeComponent();
@@ -31,7 +29,7 @@ namespace CourseManageSystem
         void Login_Load(object sender, EventArgs e)
         {
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.tbUserName.Text = "123456";
+            this.tbUserName.Text = "0201300001";
             this.tbPassword.Text = "123";
             this.rbStudent.Checked = true;
             this.btnCancel.Click += new EventHandler(btnCancel_Click);
@@ -60,31 +58,13 @@ namespace CourseManageSystem
             User.category = rbTeacher.Checked ? "1" : "0";
             User.userid = this.tbUserName.Text.Trim();
             User.password = this.tbPassword.Text.Trim();
-            if (!checkUser(User.category))
+            if (!CC.checkUser(User.userid, User.password, User.category))
             {
                 ShowMessage("用户名或密码不正确，请重新输入！");
                 return;
             }
             //登陆成功
             this.DialogResult = DialogResult.OK;
-        }
-        /// <summary>
-        /// 验证用户登录信息
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        private bool checkUser(string user)
-        {
-            loginAdapter.Fill(CMDataSet.login);
-            foreach (var item in CMDataSet.login)
-            {
-                if (item.category.Equals(user) && item.userid.Equals(User.userid) && item.password.Equals(User.password))
-                {
-                    ShowMessage("OK");
-                    return true;
-                }
-            }
-            return false;
         }
         /// <summary>
         /// 退出按钮，系统关闭

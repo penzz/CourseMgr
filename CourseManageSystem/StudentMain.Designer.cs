@@ -33,9 +33,14 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.labelLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelCenter = new System.Windows.Forms.Panel();
+            this.panelTLeft = new System.Windows.Forms.Panel();
+            this.btnTMyCourse = new System.Windows.Forms.Button();
+            this.btnTCourseMgr = new System.Windows.Forms.Button();
+            this.btnTUpdatePwd = new System.Windows.Forms.Button();
+            this.btnTPersonInfo = new System.Windows.Forms.Button();
             this.panelLeft = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.btnCourse = new System.Windows.Forms.Button();
+            this.btnMyCourse = new System.Windows.Forms.Button();
+            this.btnCourseInfo = new System.Windows.Forms.Button();
             this.btnUpdatePwd = new System.Windows.Forms.Button();
             this.btnPersonInfo = new System.Windows.Forms.Button();
             this.panelTop = new System.Windows.Forms.Panel();
@@ -43,6 +48,7 @@
             this.btnLogout = new System.Windows.Forms.Button();
             this.labelUserId = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
+            this.panelTLeft.SuspendLayout();
             this.panelLeft.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.SuspendLayout();
@@ -72,19 +78,82 @@
             // 
             // panelCenter
             // 
-            this.panelCenter.BackgroundImage = global::CourseManageSystem.Properties.Resources.background;
-            this.panelCenter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelCenter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panelCenter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCenter.Location = new System.Drawing.Point(199, 33);
+            this.panelCenter.Location = new System.Drawing.Point(398, 33);
             this.panelCenter.Name = "panelCenter";
-            this.panelCenter.Size = new System.Drawing.Size(645, 471);
+            this.panelCenter.Size = new System.Drawing.Size(446, 471);
             this.panelCenter.TabIndex = 3;
+            // 
+            // panelTLeft
+            // 
+            this.panelTLeft.BackgroundImage = global::CourseManageSystem.Properties.Resources.bg1;
+            this.panelTLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTLeft.Controls.Add(this.btnTMyCourse);
+            this.panelTLeft.Controls.Add(this.btnTCourseMgr);
+            this.panelTLeft.Controls.Add(this.btnTUpdatePwd);
+            this.panelTLeft.Controls.Add(this.btnTPersonInfo);
+            this.panelTLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelTLeft.Location = new System.Drawing.Point(199, 33);
+            this.panelTLeft.Name = "panelTLeft";
+            this.panelTLeft.Size = new System.Drawing.Size(199, 471);
+            this.panelTLeft.TabIndex = 4;
+            // 
+            // btnTMyCourse
+            // 
+            this.btnTMyCourse.Image = global::CourseManageSystem.Properties.Resources.btn;
+            this.btnTMyCourse.Location = new System.Drawing.Point(47, 337);
+            this.btnTMyCourse.Name = "btnTMyCourse";
+            this.btnTMyCourse.Size = new System.Drawing.Size(105, 76);
+            this.btnTMyCourse.TabIndex = 11;
+            this.btnTMyCourse.Text = "我的课程";
+            this.btnTMyCourse.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnTMyCourse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTMyCourse.UseVisualStyleBackColor = true;
+            // 
+            // btnTCourseMgr
+            // 
+            this.btnTCourseMgr.Image = global::CourseManageSystem.Properties.Resources.btn;
+            this.btnTCourseMgr.Location = new System.Drawing.Point(47, 243);
+            this.btnTCourseMgr.Name = "btnTCourseMgr";
+            this.btnTCourseMgr.Size = new System.Drawing.Size(105, 76);
+            this.btnTCourseMgr.TabIndex = 11;
+            this.btnTCourseMgr.Text = "课程管理";
+            this.btnTCourseMgr.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnTCourseMgr.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTCourseMgr.UseVisualStyleBackColor = true;
+            // 
+            // btnTUpdatePwd
+            // 
+            this.btnTUpdatePwd.Image = global::CourseManageSystem.Properties.Resources.btn;
+            this.btnTUpdatePwd.Location = new System.Drawing.Point(47, 149);
+            this.btnTUpdatePwd.Name = "btnTUpdatePwd";
+            this.btnTUpdatePwd.Size = new System.Drawing.Size(105, 76);
+            this.btnTUpdatePwd.TabIndex = 11;
+            this.btnTUpdatePwd.Text = "密码修改";
+            this.btnTUpdatePwd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnTUpdatePwd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTUpdatePwd.UseVisualStyleBackColor = true;
+            // 
+            // btnTPersonInfo
+            // 
+            this.btnTPersonInfo.Image = global::CourseManageSystem.Properties.Resources.btn;
+            this.btnTPersonInfo.Location = new System.Drawing.Point(47, 55);
+            this.btnTPersonInfo.Name = "btnTPersonInfo";
+            this.btnTPersonInfo.Size = new System.Drawing.Size(105, 76);
+            this.btnTPersonInfo.TabIndex = 11;
+            this.btnTPersonInfo.Text = "个人信息";
+            this.btnTPersonInfo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnTPersonInfo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTPersonInfo.UseVisualStyleBackColor = true;
             // 
             // panelLeft
             // 
             this.panelLeft.BackgroundImage = global::CourseManageSystem.Properties.Resources.bg1;
-            this.panelLeft.Controls.Add(this.button3);
-            this.panelLeft.Controls.Add(this.btnCourse);
+            this.panelLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelLeft.Controls.Add(this.btnMyCourse);
+            this.panelLeft.Controls.Add(this.btnCourseInfo);
             this.panelLeft.Controls.Add(this.btnUpdatePwd);
             this.panelLeft.Controls.Add(this.btnPersonInfo);
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
@@ -93,29 +162,29 @@
             this.panelLeft.Size = new System.Drawing.Size(199, 471);
             this.panelLeft.TabIndex = 2;
             // 
-            // button3
+            // btnMyCourse
             // 
-            this.button3.Image = global::CourseManageSystem.Properties.Resources.btn;
-            this.button3.Location = new System.Drawing.Point(47, 337);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(105, 76);
-            this.button3.TabIndex = 11;
-            this.button3.Text = "个人信息";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnMyCourse.Image = global::CourseManageSystem.Properties.Resources.btn;
+            this.btnMyCourse.Location = new System.Drawing.Point(47, 337);
+            this.btnMyCourse.Name = "btnMyCourse";
+            this.btnMyCourse.Size = new System.Drawing.Size(105, 76);
+            this.btnMyCourse.TabIndex = 11;
+            this.btnMyCourse.Text = "我的课程";
+            this.btnMyCourse.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnMyCourse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnMyCourse.UseVisualStyleBackColor = true;
             // 
-            // btnCourse
+            // btnCourseInfo
             // 
-            this.btnCourse.Image = global::CourseManageSystem.Properties.Resources.btn;
-            this.btnCourse.Location = new System.Drawing.Point(47, 243);
-            this.btnCourse.Name = "btnCourse";
-            this.btnCourse.Size = new System.Drawing.Size(105, 76);
-            this.btnCourse.TabIndex = 11;
-            this.btnCourse.Text = "课程信息";
-            this.btnCourse.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnCourse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnCourse.UseVisualStyleBackColor = true;
+            this.btnCourseInfo.Image = global::CourseManageSystem.Properties.Resources.btn;
+            this.btnCourseInfo.Location = new System.Drawing.Point(47, 243);
+            this.btnCourseInfo.Name = "btnCourseInfo";
+            this.btnCourseInfo.Size = new System.Drawing.Size(105, 76);
+            this.btnCourseInfo.TabIndex = 11;
+            this.btnCourseInfo.Text = "课程信息";
+            this.btnCourseInfo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnCourseInfo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnCourseInfo.UseVisualStyleBackColor = true;
             // 
             // btnUpdatePwd
             // 
@@ -192,6 +261,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 526);
             this.Controls.Add(this.panelCenter);
+            this.Controls.Add(this.panelTLeft);
             this.Controls.Add(this.panelLeft);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panelTop);
@@ -200,6 +270,7 @@
             this.Text = "StudentMain";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.panelTLeft.ResumeLayout(false);
             this.panelLeft.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
@@ -220,8 +291,13 @@
         private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.Panel panelCenter;
         private System.Windows.Forms.Button btnPersonInfo;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button btnCourse;
+        private System.Windows.Forms.Button btnMyCourse;
+        private System.Windows.Forms.Button btnCourseInfo;
         private System.Windows.Forms.Button btnUpdatePwd;
+        private System.Windows.Forms.Panel panelTLeft;
+        private System.Windows.Forms.Button btnTMyCourse;
+        private System.Windows.Forms.Button btnTCourseMgr;
+        private System.Windows.Forms.Button btnTUpdatePwd;
+        private System.Windows.Forms.Button btnTPersonInfo;
     }
 }

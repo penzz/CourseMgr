@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CourseMgr" Class="CourseMgrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database\CourseMgr.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="CourseManageSystem.Properties.Settings" SettingsPropertyName="CourseMgrConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.StudentInfo" Member="StudentInfo">
+    <Type Name="StudentInfo">
+      <Column Name="userid" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="politics" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="nation" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="academy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="major" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="photo" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="idcard" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="grade" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.login" Member="login">
+    <Type Name="login">
+      <Column Name="userid" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="category" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

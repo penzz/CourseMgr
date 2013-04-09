@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 402);
+            this.ClientSize = new System.Drawing.Size(640, 470);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "BasePanelForm";
             this.Text = "BasePanelForm";

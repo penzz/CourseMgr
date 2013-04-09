@@ -51,6 +51,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,18 +68,43 @@
     <Compile Include="Common\BasePanelForm.Designer.cs">
       <DependentUpon>BasePanelForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\CC.cs" />
     <Compile Include="Common\User.cs" />
+    <Compile Include="Database\CourseMgr.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CourseMgr.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Database\CourseMgrDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CourseMgrDataSet.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Database\DBAccess.cs" />
+    <Compile Include="Forms\CourseInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CourseInfo.Designer.cs">
+      <DependentUpon>CourseInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PersonInfo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\PersonInfo.Designer.cs">
       <DependentUpon>PersonInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TPersonInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TPersonInfo.Designer.cs">
+      <DependentUpon>TPersonInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TUpdatePwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TUpdatePwd.Designer.cs">
+      <DependentUpon>TUpdatePwd.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\UpdatePwd.cs">
       <SubType>Form</SubType>
@@ -109,8 +135,23 @@
     <EmbeddedResource Include="Common\BasePanelForm.resx">
       <DependentUpon>BasePanelForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CourseInfo.resx">
+      <DependentUpon>CourseInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TPersonInfo.resx">
+      <DependentUpon>TPersonInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeacherMain.resx">
+      <DependentUpon>TeacherMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Database\CourseMgr.dbml.layout">
+      <DependentUpon>CourseMgr.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="Forms\PersonInfo.resx">
       <DependentUpon>PersonInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UpdatePwd.resx">
+      <DependentUpon>UpdatePwd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -129,6 +170,11 @@
       <DependentUpon>StudentMain.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Database\CourseMgr.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>CourseMgr.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Database\CourseMgrDataSet.xsc">
       <DependentUpon>CourseMgrDataSet.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -199,6 +245,9 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
