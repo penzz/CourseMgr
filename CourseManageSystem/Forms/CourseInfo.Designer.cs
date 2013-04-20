@@ -44,7 +44,8 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.btnAddMyCourse = new System.Windows.Forms.ToolStripButton();
+            this.btnTeacherInfo = new System.Windows.Forms.ToolStripButton();
             this.courseDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,6 +80,7 @@
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
             this.tableAdapterManager.CourseTableAdapter = this.courseTableAdapter;
             this.tableAdapterManager.loginTableAdapter = null;
+            this.tableAdapterManager.SCTableAdapter = null;
             this.tableAdapterManager.StudentInfoTableAdapter = null;
             this.tableAdapterManager.TeacherInfoTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = CourseManageSystem.Database.CourseMgrDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
@@ -89,6 +91,7 @@
             this.courseBindingNavigator.BindingSource = this.courseBindingSource;
             this.courseBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.courseBindingNavigator.DeleteItem = null;
+            this.courseBindingNavigator.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.courseBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
@@ -99,8 +102,9 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2,
-            this.bindingNavigatorAddNewItem});
-            this.courseBindingNavigator.Location = new System.Drawing.Point(10, 230);
+            this.btnAddMyCourse,
+            this.btnTeacherInfo});
+            this.courseBindingNavigator.Location = new System.Drawing.Point(10, 435);
             this.courseBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.courseBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.courseBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -178,14 +182,22 @@
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // bindingNavigatorAddNewItem
+            // btnAddMyCourse
             // 
-            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(76, 22);
-            this.bindingNavigatorAddNewItem.Text = "添加选课";
-            this.bindingNavigatorAddNewItem.ToolTipText = "选择选中的课程";
+            this.btnAddMyCourse.Image = ((System.Drawing.Image)(resources.GetObject("btnAddMyCourse.Image")));
+            this.btnAddMyCourse.Name = "btnAddMyCourse";
+            this.btnAddMyCourse.RightToLeftAutoMirrorImage = true;
+            this.btnAddMyCourse.Size = new System.Drawing.Size(100, 22);
+            this.btnAddMyCourse.Text = "加入我的课程";
+            this.btnAddMyCourse.ToolTipText = "选择选中的课程";
+            // 
+            // btnTeacherInfo
+            // 
+            this.btnTeacherInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnTeacherInfo.Image")));
+            this.btnTeacherInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTeacherInfo.Name = "btnTeacherInfo";
+            this.btnTeacherInfo.Size = new System.Drawing.Size(100, 22);
+            this.btnTeacherInfo.Text = "查看老师信息";
             // 
             // courseDataGridView
             // 
@@ -202,17 +214,19 @@
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7});
             this.courseDataGridView.DataSource = this.courseBindingSource;
-            this.courseDataGridView.Dock = System.Windows.Forms.DockStyle.Top;
+            this.courseDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.courseDataGridView.Location = new System.Drawing.Point(10, 10);
+            this.courseDataGridView.MultiSelect = false;
             this.courseDataGridView.Name = "courseDataGridView";
             this.courseDataGridView.ReadOnly = true;
             this.courseDataGridView.RowTemplate.Height = 23;
             this.courseDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.courseDataGridView.Size = new System.Drawing.Size(620, 220);
+            this.courseDataGridView.Size = new System.Drawing.Size(620, 425);
             this.courseDataGridView.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn1
             // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn1.DataPropertyName = "Cid";
             this.dataGridViewTextBoxColumn1.HeaderText = "课程号";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
@@ -220,6 +234,7 @@
             // 
             // dataGridViewTextBoxColumn2
             // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn2.DataPropertyName = "Cname";
             this.dataGridViewTextBoxColumn2.HeaderText = "课程名";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
@@ -227,6 +242,7 @@
             // 
             // dataGridViewTextBoxColumn3
             // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn3.DataPropertyName = "Ccredit";
             this.dataGridViewTextBoxColumn3.HeaderText = "学分";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
@@ -234,6 +250,7 @@
             // 
             // dataGridViewTextBoxColumn4
             // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn4.DataPropertyName = "Ctime";
             this.dataGridViewTextBoxColumn4.HeaderText = "上课时间";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -241,6 +258,7 @@
             // 
             // dataGridViewTextBoxColumn5
             // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn5.DataPropertyName = "Cmajorname";
             this.dataGridViewTextBoxColumn5.HeaderText = "专业名称";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -248,6 +266,7 @@
             // 
             // dataGridViewTextBoxColumn6
             // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn6.DataPropertyName = "Cteacher";
             this.dataGridViewTextBoxColumn6.HeaderText = "老师编号";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
@@ -255,6 +274,7 @@
             // 
             // dataGridViewTextBoxColumn7
             // 
+            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn7.DataPropertyName = "Cinfo";
             this.dataGridViewTextBoxColumn7.HeaderText = "课程简介";
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
@@ -264,8 +284,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(640, 470);
-            this.Controls.Add(this.courseBindingNavigator);
             this.Controls.Add(this.courseDataGridView);
+            this.Controls.Add(this.courseBindingNavigator);
             this.Name = "CourseInfo";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.Load += new System.EventHandler(this.CourseInfo_Load);
@@ -287,7 +307,7 @@
         private Database.CourseMgrDataSetTableAdapters.CourseTableAdapter courseTableAdapter;
         private Database.CourseMgrDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.BindingNavigator courseBindingNavigator;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
+        private System.Windows.Forms.ToolStripButton btnAddMyCourse;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
@@ -298,6 +318,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.DataGridView courseDataGridView;
+        private System.Windows.Forms.ToolStripButton btnTeacherInfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;

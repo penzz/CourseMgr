@@ -75,6 +75,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CourseMgr.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Database\CourseMgrDataSet.cs">
+      <DependentUpon>CourseMgrDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Database\CourseMgrDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,17 +86,47 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Database\DBAccess.cs" />
+    <Compile Include="Forms\AddCourse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddCourse.Designer.cs">
+      <DependentUpon>AddCourse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CourseInfo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\CourseInfo.Designer.cs">
       <DependentUpon>CourseInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MyCourse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MyCourse.Designer.cs">
+      <DependentUpon>MyCourse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PersonInfo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\PersonInfo.Designer.cs">
       <DependentUpon>PersonInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ShowTeacher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ShowTeacher.Designer.cs">
+      <DependentUpon>ShowTeacher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TCourseMgr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TCourseMgr.Designer.cs">
+      <DependentUpon>TCourseMgr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TMyCourse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TMyCourse.Designer.cs">
+      <DependentUpon>TMyCourse.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\TPersonInfo.cs">
       <SubType>Form</SubType>
@@ -120,29 +154,35 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StudentMain.cs">
+    <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StudentMain.Designer.cs">
-      <DependentUpon>StudentMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TeacherMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TeacherMain.Designer.cs">
-      <DependentUpon>TeacherMain.cs</DependentUpon>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Common\BasePanelForm.resx">
       <DependentUpon>BasePanelForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddCourse.resx">
+      <DependentUpon>AddCourse.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CourseInfo.resx">
       <DependentUpon>CourseInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MyCourse.resx">
+      <DependentUpon>MyCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ShowTeacher.resx">
+      <DependentUpon>ShowTeacher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TCourseMgr.resx">
+      <DependentUpon>TCourseMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TMyCourse.resx">
+      <DependentUpon>TMyCourse.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\TPersonInfo.resx">
       <DependentUpon>TPersonInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TeacherMain.resx">
-      <DependentUpon>TeacherMain.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Database\CourseMgr.dbml.layout">
       <DependentUpon>CourseMgr.dbml</DependentUpon>
@@ -166,8 +206,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="StudentMain.resx">
-      <DependentUpon>StudentMain.cs</DependentUpon>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Database\CourseMgr.dbml">

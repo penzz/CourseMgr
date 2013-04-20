@@ -30,6 +30,18 @@ namespace CourseManageSystem.Database
 		
     #region 可扩展性方法定义
     partial void OnCreated();
+    partial void InsertSC(SC instance);
+    partial void UpdateSC(SC instance);
+    partial void DeleteSC(SC instance);
+    partial void InsertStudentInfo(StudentInfo instance);
+    partial void UpdateStudentInfo(StudentInfo instance);
+    partial void DeleteStudentInfo(StudentInfo instance);
+    partial void InsertTeacherInfo(TeacherInfo instance);
+    partial void UpdateTeacherInfo(TeacherInfo instance);
+    partial void DeleteTeacherInfo(TeacherInfo instance);
+    partial void InsertCourse(Course instance);
+    partial void UpdateCourse(Course instance);
+    partial void DeleteCourse(Course instance);
     #endregion
 		
 		public CourseMgrDataContext() : 
@@ -62,6 +74,22 @@ namespace CourseManageSystem.Database
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<login> login
+		{
+			get
+			{
+				return this.GetTable<login>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SC> SC
+		{
+			get
+			{
+				return this.GetTable<SC>();
+			}
+		}
+		
 		public System.Data.Linq.Table<StudentInfo> StudentInfo
 		{
 			get
@@ -70,44 +98,69 @@ namespace CourseManageSystem.Database
 			}
 		}
 		
-		public System.Data.Linq.Table<login> login
+		public System.Data.Linq.Table<TeacherInfo> TeacherInfo
 		{
 			get
 			{
-				return this.GetTable<login>();
+				return this.GetTable<TeacherInfo>();
 			}
+		}
+		
+		public System.Data.Linq.Table<Course> Course
+		{
+			get
+			{
+				return this.GetTable<Course>();
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SelectStudent")]
+		public ISingleResult<SelectStudentResult> SelectStudent([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string sid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sid);
+			return ((ISingleResult<SelectStudentResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SelectTeacher")]
+		public ISingleResult<SelectTeacherResult> SelectTeacher([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string tid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tid);
+			return ((ISingleResult<SelectTeacherResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdatePassword")]
+		public int UpdatePassword([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string userid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string password)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userid, password);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddMyCourse")]
+		public int AddMyCourse([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string sno, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> cno)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sno, cno);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SelectCourse")]
+		public ISingleResult<SelectCourseResult> SelectCourse([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string tno, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> cno)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tno, cno);
+			return ((ISingleResult<SelectCourseResult>)(result.ReturnValue));
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StudentInfo")]
-	public partial class StudentInfo
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.login")]
+	public partial class login
 	{
 		
 		private string _userid;
 		
-		private string _username;
+		private string _password;
 		
-		private string _sex;
+		private char _category;
 		
-		private string _politics;
-		
-		private string _nation;
-		
-		private System.Nullable<System.DateTime> _birthday;
-		
-		private string _academy;
-		
-		private string _major;
-		
-		private System.Xml.Linq.XElement _photo;
-		
-		private string _phone;
-		
-		private string _idcard;
-		
-		private string _grade;
-		
-		public StudentInfo()
+		public login()
 		{
 		}
 		
@@ -127,7 +180,1100 @@ namespace CourseManageSystem.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string password
+		{
+			get
+			{
+				return this._password;
+			}
+			set
+			{
+				if ((this._password != value))
+				{
+					this._password = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="Char(1) NOT NULL")]
+		public char category
+		{
+			get
+			{
+				return this._category;
+			}
+			set
+			{
+				if ((this._category != value))
+				{
+					this._category = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SC")]
+	public partial class SC : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _no;
+		
+		private string _Sno;
+		
+		private int _Cno;
+		
+		private System.Nullable<int> _Grade;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnnoChanging(int value);
+    partial void OnnoChanged();
+    partial void OnSnoChanging(string value);
+    partial void OnSnoChanged();
+    partial void OnCnoChanging(int value);
+    partial void OnCnoChanged();
+    partial void OnGradeChanging(System.Nullable<int> value);
+    partial void OnGradeChanged();
+    #endregion
+		
+		public SC()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_no", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int no
+		{
+			get
+			{
+				return this._no;
+			}
+			set
+			{
+				if ((this._no != value))
+				{
+					this.OnnoChanging(value);
+					this.SendPropertyChanging();
+					this._no = value;
+					this.SendPropertyChanged("no");
+					this.OnnoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sno", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Sno
+		{
+			get
+			{
+				return this._Sno;
+			}
+			set
+			{
+				if ((this._Sno != value))
+				{
+					this.OnSnoChanging(value);
+					this.SendPropertyChanging();
+					this._Sno = value;
+					this.SendPropertyChanged("Sno");
+					this.OnSnoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cno", DbType="Int NOT NULL")]
+		public int Cno
+		{
+			get
+			{
+				return this._Cno;
+			}
+			set
+			{
+				if ((this._Cno != value))
+				{
+					this.OnCnoChanging(value);
+					this.SendPropertyChanging();
+					this._Cno = value;
+					this.SendPropertyChanged("Cno");
+					this.OnCnoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grade", DbType="Int")]
+		public System.Nullable<int> Grade
+		{
+			get
+			{
+				return this._Grade;
+			}
+			set
+			{
+				if ((this._Grade != value))
+				{
+					this.OnGradeChanging(value);
+					this.SendPropertyChanging();
+					this._Grade = value;
+					this.SendPropertyChanged("Grade");
+					this.OnGradeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StudentInfo")]
+	public partial class StudentInfo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _userid;
+		
+		private string _username;
+		
+		private string _sex;
+		
+		private string _politics;
+		
+		private string _nation;
+		
+		private System.Nullable<System.DateTime> _birthday;
+		
+		private string _academy;
+		
+		private string _major;
+		
+		private string _phone;
+		
+		private string _idcard;
+		
+		private string _grade;
+		
+		private System.Data.Linq.Binary _photo;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnuseridChanging(string value);
+    partial void OnuseridChanged();
+    partial void OnusernameChanging(string value);
+    partial void OnusernameChanged();
+    partial void OnsexChanging(string value);
+    partial void OnsexChanged();
+    partial void OnpoliticsChanging(string value);
+    partial void OnpoliticsChanged();
+    partial void OnnationChanging(string value);
+    partial void OnnationChanged();
+    partial void OnbirthdayChanging(System.Nullable<System.DateTime> value);
+    partial void OnbirthdayChanged();
+    partial void OnacademyChanging(string value);
+    partial void OnacademyChanged();
+    partial void OnmajorChanging(string value);
+    partial void OnmajorChanged();
+    partial void OnphoneChanging(string value);
+    partial void OnphoneChanged();
+    partial void OnidcardChanging(string value);
+    partial void OnidcardChanged();
+    partial void OngradeChanging(string value);
+    partial void OngradeChanged();
+    partial void OnphotoChanging(System.Data.Linq.Binary value);
+    partial void OnphotoChanged();
+    #endregion
+		
+		public StudentInfo()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userid", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string userid
+		{
+			get
+			{
+				return this._userid;
+			}
+			set
+			{
+				if ((this._userid != value))
+				{
+					this.OnuseridChanging(value);
+					this.SendPropertyChanging();
+					this._userid = value;
+					this.SendPropertyChanged("userid");
+					this.OnuseridChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="NVarChar(50)")]
+		public string username
+		{
+			get
+			{
+				return this._username;
+			}
+			set
+			{
+				if ((this._username != value))
+				{
+					this.OnusernameChanging(value);
+					this.SendPropertyChanging();
+					this._username = value;
+					this.SendPropertyChanged("username");
+					this.OnusernameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="VarChar(4)")]
+		public string sex
+		{
+			get
+			{
+				return this._sex;
+			}
+			set
+			{
+				if ((this._sex != value))
+				{
+					this.OnsexChanging(value);
+					this.SendPropertyChanging();
+					this._sex = value;
+					this.SendPropertyChanged("sex");
+					this.OnsexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_politics", DbType="NVarChar(10)")]
+		public string politics
+		{
+			get
+			{
+				return this._politics;
+			}
+			set
+			{
+				if ((this._politics != value))
+				{
+					this.OnpoliticsChanging(value);
+					this.SendPropertyChanging();
+					this._politics = value;
+					this.SendPropertyChanged("politics");
+					this.OnpoliticsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nation", DbType="NVarChar(5)")]
+		public string nation
+		{
+			get
+			{
+				return this._nation;
+			}
+			set
+			{
+				if ((this._nation != value))
+				{
+					this.OnnationChanging(value);
+					this.SendPropertyChanging();
+					this._nation = value;
+					this.SendPropertyChanged("nation");
+					this.OnnationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_birthday", DbType="DateTime")]
+		public System.Nullable<System.DateTime> birthday
+		{
+			get
+			{
+				return this._birthday;
+			}
+			set
+			{
+				if ((this._birthday != value))
+				{
+					this.OnbirthdayChanging(value);
+					this.SendPropertyChanging();
+					this._birthday = value;
+					this.SendPropertyChanged("birthday");
+					this.OnbirthdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_academy", DbType="NVarChar(50)")]
+		public string academy
+		{
+			get
+			{
+				return this._academy;
+			}
+			set
+			{
+				if ((this._academy != value))
+				{
+					this.OnacademyChanging(value);
+					this.SendPropertyChanging();
+					this._academy = value;
+					this.SendPropertyChanged("academy");
+					this.OnacademyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_major", DbType="NVarChar(50)")]
+		public string major
+		{
+			get
+			{
+				return this._major;
+			}
+			set
+			{
+				if ((this._major != value))
+				{
+					this.OnmajorChanging(value);
+					this.SendPropertyChanging();
+					this._major = value;
+					this.SendPropertyChanged("major");
+					this.OnmajorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="NVarChar(50)")]
+		public string phone
+		{
+			get
+			{
+				return this._phone;
+			}
+			set
+			{
+				if ((this._phone != value))
+				{
+					this.OnphoneChanging(value);
+					this.SendPropertyChanging();
+					this._phone = value;
+					this.SendPropertyChanged("phone");
+					this.OnphoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idcard", DbType="NVarChar(30)")]
+		public string idcard
+		{
+			get
+			{
+				return this._idcard;
+			}
+			set
+			{
+				if ((this._idcard != value))
+				{
+					this.OnidcardChanging(value);
+					this.SendPropertyChanging();
+					this._idcard = value;
+					this.SendPropertyChanged("idcard");
+					this.OnidcardChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_grade", DbType="NVarChar(10)")]
+		public string grade
+		{
+			get
+			{
+				return this._grade;
+			}
+			set
+			{
+				if ((this._grade != value))
+				{
+					this.OngradeChanging(value);
+					this.SendPropertyChanging();
+					this._grade = value;
+					this.SendPropertyChanged("grade");
+					this.OngradeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary photo
+		{
+			get
+			{
+				return this._photo;
+			}
+			set
+			{
+				if ((this._photo != value))
+				{
+					this.OnphotoChanging(value);
+					this.SendPropertyChanging();
+					this._photo = value;
+					this.SendPropertyChanged("photo");
+					this.OnphotoChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TeacherInfo")]
+	public partial class TeacherInfo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Tuserid;
+		
+		private string _Tusername;
+		
+		private string _Tsex;
+		
+		private string _Tphone;
+		
+		private string _Temail;
+		
+		private string _Tacademic;
+		
+		private string _Theader;
+		
+		private string _Tintro;
+		
+		private System.Data.Linq.Binary _Tphoto;
+		
+		private System.Nullable<System.DateTime> _Tbirthday;
+		
+		private EntitySet<Course> _Course;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTuseridChanging(string value);
+    partial void OnTuseridChanged();
+    partial void OnTusernameChanging(string value);
+    partial void OnTusernameChanged();
+    partial void OnTsexChanging(string value);
+    partial void OnTsexChanged();
+    partial void OnTphoneChanging(string value);
+    partial void OnTphoneChanged();
+    partial void OnTemailChanging(string value);
+    partial void OnTemailChanged();
+    partial void OnTacademicChanging(string value);
+    partial void OnTacademicChanged();
+    partial void OnTheaderChanging(string value);
+    partial void OnTheaderChanged();
+    partial void OnTintroChanging(string value);
+    partial void OnTintroChanged();
+    partial void OnTphotoChanging(System.Data.Linq.Binary value);
+    partial void OnTphotoChanged();
+    partial void OnTbirthdayChanging(System.Nullable<System.DateTime> value);
+    partial void OnTbirthdayChanged();
+    #endregion
+		
+		public TeacherInfo()
+		{
+			this._Course = new EntitySet<Course>(new Action<Course>(this.attach_Course), new Action<Course>(this.detach_Course));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tuserid", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Tuserid
+		{
+			get
+			{
+				return this._Tuserid;
+			}
+			set
+			{
+				if ((this._Tuserid != value))
+				{
+					this.OnTuseridChanging(value);
+					this.SendPropertyChanging();
+					this._Tuserid = value;
+					this.SendPropertyChanged("Tuserid");
+					this.OnTuseridChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tusername", DbType="NVarChar(50)")]
+		public string Tusername
+		{
+			get
+			{
+				return this._Tusername;
+			}
+			set
+			{
+				if ((this._Tusername != value))
+				{
+					this.OnTusernameChanging(value);
+					this.SendPropertyChanging();
+					this._Tusername = value;
+					this.SendPropertyChanged("Tusername");
+					this.OnTusernameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tsex", DbType="NChar(2)")]
+		public string Tsex
+		{
+			get
+			{
+				return this._Tsex;
+			}
+			set
+			{
+				if ((this._Tsex != value))
+				{
+					this.OnTsexChanging(value);
+					this.SendPropertyChanging();
+					this._Tsex = value;
+					this.SendPropertyChanged("Tsex");
+					this.OnTsexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tphone", DbType="NVarChar(50)")]
+		public string Tphone
+		{
+			get
+			{
+				return this._Tphone;
+			}
+			set
+			{
+				if ((this._Tphone != value))
+				{
+					this.OnTphoneChanging(value);
+					this.SendPropertyChanging();
+					this._Tphone = value;
+					this.SendPropertyChanged("Tphone");
+					this.OnTphoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Temail", DbType="NVarChar(50)")]
+		public string Temail
+		{
+			get
+			{
+				return this._Temail;
+			}
+			set
+			{
+				if ((this._Temail != value))
+				{
+					this.OnTemailChanging(value);
+					this.SendPropertyChanging();
+					this._Temail = value;
+					this.SendPropertyChanged("Temail");
+					this.OnTemailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tacademic", DbType="NVarChar(50)")]
+		public string Tacademic
+		{
+			get
+			{
+				return this._Tacademic;
+			}
+			set
+			{
+				if ((this._Tacademic != value))
+				{
+					this.OnTacademicChanging(value);
+					this.SendPropertyChanging();
+					this._Tacademic = value;
+					this.SendPropertyChanged("Tacademic");
+					this.OnTacademicChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Theader", DbType="NVarChar(10)")]
+		public string Theader
+		{
+			get
+			{
+				return this._Theader;
+			}
+			set
+			{
+				if ((this._Theader != value))
+				{
+					this.OnTheaderChanging(value);
+					this.SendPropertyChanging();
+					this._Theader = value;
+					this.SendPropertyChanged("Theader");
+					this.OnTheaderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tintro", DbType="NVarChar(MAX)")]
+		public string Tintro
+		{
+			get
+			{
+				return this._Tintro;
+			}
+			set
+			{
+				if ((this._Tintro != value))
+				{
+					this.OnTintroChanging(value);
+					this.SendPropertyChanging();
+					this._Tintro = value;
+					this.SendPropertyChanged("Tintro");
+					this.OnTintroChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tphoto", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Tphoto
+		{
+			get
+			{
+				return this._Tphoto;
+			}
+			set
+			{
+				if ((this._Tphoto != value))
+				{
+					this.OnTphotoChanging(value);
+					this.SendPropertyChanging();
+					this._Tphoto = value;
+					this.SendPropertyChanged("Tphoto");
+					this.OnTphotoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tbirthday", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Tbirthday
+		{
+			get
+			{
+				return this._Tbirthday;
+			}
+			set
+			{
+				if ((this._Tbirthday != value))
+				{
+					this.OnTbirthdayChanging(value);
+					this.SendPropertyChanging();
+					this._Tbirthday = value;
+					this.SendPropertyChanged("Tbirthday");
+					this.OnTbirthdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TeacherInfo_Course", Storage="_Course", ThisKey="Tuserid", OtherKey="Cteacher")]
+		public EntitySet<Course> Course
+		{
+			get
+			{
+				return this._Course;
+			}
+			set
+			{
+				this._Course.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Course(Course entity)
+		{
+			this.SendPropertyChanging();
+			entity.TeacherInfo = this;
+		}
+		
+		private void detach_Course(Course entity)
+		{
+			this.SendPropertyChanging();
+			entity.TeacherInfo = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Course")]
+	public partial class Course : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Cid;
+		
+		private string _Cname;
+		
+		private System.Nullable<int> _Ccredit;
+		
+		private string _Ctime;
+		
+		private string _Cmajorname;
+		
+		private string _Cteacher;
+		
+		private string _Cinfo;
+		
+		private EntityRef<TeacherInfo> _TeacherInfo;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCidChanging(int value);
+    partial void OnCidChanged();
+    partial void OnCnameChanging(string value);
+    partial void OnCnameChanged();
+    partial void OnCcreditChanging(System.Nullable<int> value);
+    partial void OnCcreditChanged();
+    partial void OnCtimeChanging(string value);
+    partial void OnCtimeChanged();
+    partial void OnCmajornameChanging(string value);
+    partial void OnCmajornameChanged();
+    partial void OnCteacherChanging(string value);
+    partial void OnCteacherChanged();
+    partial void OnCinfoChanging(string value);
+    partial void OnCinfoChanged();
+    #endregion
+		
+		public Course()
+		{
+			this._TeacherInfo = default(EntityRef<TeacherInfo>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cid", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Cid
+		{
+			get
+			{
+				return this._Cid;
+			}
+			set
+			{
+				if ((this._Cid != value))
+				{
+					this.OnCidChanging(value);
+					this.SendPropertyChanging();
+					this._Cid = value;
+					this.SendPropertyChanged("Cid");
+					this.OnCidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cname", DbType="NVarChar(50)")]
+		public string Cname
+		{
+			get
+			{
+				return this._Cname;
+			}
+			set
+			{
+				if ((this._Cname != value))
+				{
+					this.OnCnameChanging(value);
+					this.SendPropertyChanging();
+					this._Cname = value;
+					this.SendPropertyChanged("Cname");
+					this.OnCnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ccredit", DbType="Int")]
+		public System.Nullable<int> Ccredit
+		{
+			get
+			{
+				return this._Ccredit;
+			}
+			set
+			{
+				if ((this._Ccredit != value))
+				{
+					this.OnCcreditChanging(value);
+					this.SendPropertyChanging();
+					this._Ccredit = value;
+					this.SendPropertyChanged("Ccredit");
+					this.OnCcreditChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ctime", DbType="NVarChar(50)")]
+		public string Ctime
+		{
+			get
+			{
+				return this._Ctime;
+			}
+			set
+			{
+				if ((this._Ctime != value))
+				{
+					this.OnCtimeChanging(value);
+					this.SendPropertyChanging();
+					this._Ctime = value;
+					this.SendPropertyChanged("Ctime");
+					this.OnCtimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cmajorname", DbType="NVarChar(50)")]
+		public string Cmajorname
+		{
+			get
+			{
+				return this._Cmajorname;
+			}
+			set
+			{
+				if ((this._Cmajorname != value))
+				{
+					this.OnCmajornameChanging(value);
+					this.SendPropertyChanging();
+					this._Cmajorname = value;
+					this.SendPropertyChanged("Cmajorname");
+					this.OnCmajornameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cteacher", DbType="NVarChar(50)")]
+		public string Cteacher
+		{
+			get
+			{
+				return this._Cteacher;
+			}
+			set
+			{
+				if ((this._Cteacher != value))
+				{
+					if (this._TeacherInfo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCteacherChanging(value);
+					this.SendPropertyChanging();
+					this._Cteacher = value;
+					this.SendPropertyChanged("Cteacher");
+					this.OnCteacherChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cinfo", DbType="NVarChar(MAX)")]
+		public string Cinfo
+		{
+			get
+			{
+				return this._Cinfo;
+			}
+			set
+			{
+				if ((this._Cinfo != value))
+				{
+					this.OnCinfoChanging(value);
+					this.SendPropertyChanging();
+					this._Cinfo = value;
+					this.SendPropertyChanged("Cinfo");
+					this.OnCinfoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TeacherInfo_Course", Storage="_TeacherInfo", ThisKey="Cteacher", OtherKey="Tuserid", IsForeignKey=true)]
+		public TeacherInfo TeacherInfo
+		{
+			get
+			{
+				return this._TeacherInfo.Entity;
+			}
+			set
+			{
+				TeacherInfo previousValue = this._TeacherInfo.Entity;
+				if (((previousValue != value) 
+							|| (this._TeacherInfo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TeacherInfo.Entity = null;
+						previousValue.Course.Remove(this);
+					}
+					this._TeacherInfo.Entity = value;
+					if ((value != null))
+					{
+						value.Course.Add(this);
+						this._Cteacher = value.Tuserid;
+					}
+					else
+					{
+						this._Cteacher = default(string);
+					}
+					this.SendPropertyChanged("TeacherInfo");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	public partial class SelectStudentResult
+	{
+		
+		private string _userid;
+		
+		private string _username;
+		
+		private string _sex;
+		
+		private string _politics;
+		
+		private string _nation;
+		
+		private System.Nullable<System.DateTime> _birthday;
+		
+		private string _academy;
+		
+		private string _major;
+		
+		private string _phone;
+		
+		private string _idcard;
+		
+		private string _grade;
+		
+		private System.Data.Linq.Binary _photo;
+		
+		public SelectStudentResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userid", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string userid
+		{
+			get
+			{
+				return this._userid;
+			}
+			set
+			{
+				if ((this._userid != value))
+				{
+					this._userid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="NVarChar(50)")]
 		public string username
 		{
 			get
@@ -239,22 +1385,6 @@ namespace CourseManageSystem.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Xml", UpdateCheck=UpdateCheck.Never)]
-		public System.Xml.Linq.XElement photo
-		{
-			get
-			{
-				return this._photo;
-			}
-			set
-			{
-				if ((this._photo != value))
-				{
-					this._photo = value;
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="NVarChar(50)")]
 		public string phone
 		{
@@ -302,23 +1432,236 @@ namespace CourseManageSystem.Database
 				}
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image")]
+		public System.Data.Linq.Binary photo
+		{
+			get
+			{
+				return this._photo;
+			}
+			set
+			{
+				if ((this._photo != value))
+				{
+					this._photo = value;
+				}
+			}
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.login")]
-	public partial class login
+	public partial class SelectTeacherResult
+	{
+		
+		private string _Tuserid;
+		
+		private string _Tusername;
+		
+		private string _Tsex;
+		
+		private string _Tphone;
+		
+		private string _Temail;
+		
+		private string _Tacademic;
+		
+		private string _Theader;
+		
+		private string _Tintro;
+		
+		private System.Data.Linq.Binary _Tphoto;
+		
+		private System.Nullable<System.DateTime> _Tbirthday;
+		
+		public SelectTeacherResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tuserid", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Tuserid
+		{
+			get
+			{
+				return this._Tuserid;
+			}
+			set
+			{
+				if ((this._Tuserid != value))
+				{
+					this._Tuserid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tusername", DbType="NVarChar(50)")]
+		public string Tusername
+		{
+			get
+			{
+				return this._Tusername;
+			}
+			set
+			{
+				if ((this._Tusername != value))
+				{
+					this._Tusername = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tsex", DbType="NChar(2)")]
+		public string Tsex
+		{
+			get
+			{
+				return this._Tsex;
+			}
+			set
+			{
+				if ((this._Tsex != value))
+				{
+					this._Tsex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tphone", DbType="NVarChar(50)")]
+		public string Tphone
+		{
+			get
+			{
+				return this._Tphone;
+			}
+			set
+			{
+				if ((this._Tphone != value))
+				{
+					this._Tphone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Temail", DbType="NVarChar(50)")]
+		public string Temail
+		{
+			get
+			{
+				return this._Temail;
+			}
+			set
+			{
+				if ((this._Temail != value))
+				{
+					this._Temail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tacademic", DbType="NVarChar(50)")]
+		public string Tacademic
+		{
+			get
+			{
+				return this._Tacademic;
+			}
+			set
+			{
+				if ((this._Tacademic != value))
+				{
+					this._Tacademic = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Theader", DbType="NVarChar(10)")]
+		public string Theader
+		{
+			get
+			{
+				return this._Theader;
+			}
+			set
+			{
+				if ((this._Theader != value))
+				{
+					this._Theader = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tintro", DbType="NVarChar(MAX)")]
+		public string Tintro
+		{
+			get
+			{
+				return this._Tintro;
+			}
+			set
+			{
+				if ((this._Tintro != value))
+				{
+					this._Tintro = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tphoto", DbType="Image")]
+		public System.Data.Linq.Binary Tphoto
+		{
+			get
+			{
+				return this._Tphoto;
+			}
+			set
+			{
+				if ((this._Tphoto != value))
+				{
+					this._Tphoto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tbirthday", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Tbirthday
+		{
+			get
+			{
+				return this._Tbirthday;
+			}
+			set
+			{
+				if ((this._Tbirthday != value))
+				{
+					this._Tbirthday = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SelectCourseResult
 	{
 		
 		private string _userid;
 		
-		private string _password;
+		private string _username;
 		
-		private char _category;
+		private string _sex;
 		
-		public login()
+		private string _academy;
+		
+		private string _major;
+		
+		private string _grade;
+		
+		private System.Nullable<System.DateTime> _Ctime;
+		
+		private System.Nullable<int> _fenshu;
+		
+		public SelectCourseResult()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userid", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userid", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string userid
 		{
 			get
@@ -334,34 +1677,114 @@ namespace CourseManageSystem.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string password
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="NVarChar(50)")]
+		public string username
 		{
 			get
 			{
-				return this._password;
+				return this._username;
 			}
 			set
 			{
-				if ((this._password != value))
+				if ((this._username != value))
 				{
-					this._password = value;
+					this._username = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="Char(1) NOT NULL")]
-		public char category
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="VarChar(4)")]
+		public string sex
 		{
 			get
 			{
-				return this._category;
+				return this._sex;
 			}
 			set
 			{
-				if ((this._category != value))
+				if ((this._sex != value))
 				{
-					this._category = value;
+					this._sex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_academy", DbType="NVarChar(50)")]
+		public string academy
+		{
+			get
+			{
+				return this._academy;
+			}
+			set
+			{
+				if ((this._academy != value))
+				{
+					this._academy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_major", DbType="NVarChar(50)")]
+		public string major
+		{
+			get
+			{
+				return this._major;
+			}
+			set
+			{
+				if ((this._major != value))
+				{
+					this._major = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_grade", DbType="NVarChar(10)")]
+		public string grade
+		{
+			get
+			{
+				return this._grade;
+			}
+			set
+			{
+				if ((this._grade != value))
+				{
+					this._grade = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ctime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Ctime
+		{
+			get
+			{
+				return this._Ctime;
+			}
+			set
+			{
+				if ((this._Ctime != value))
+				{
+					this._Ctime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fenshu", DbType="Int")]
+		public System.Nullable<int> fenshu
+		{
+			get
+			{
+				return this._fenshu;
+			}
+			set
+			{
+				if ((this._fenshu != value))
+				{
+					this._fenshu = value;
 				}
 			}
 		}

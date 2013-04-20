@@ -25,7 +25,7 @@ namespace CourseManageSystem
             login.ShowDialog();
             if (login.DialogResult == DialogResult.OK)
             {
-                Application.Run(new StudentMain());
+                Application.Run(new FormMain());
             }
         }
     }

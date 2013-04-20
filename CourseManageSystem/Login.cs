@@ -29,8 +29,6 @@ namespace CourseManageSystem
         void Login_Load(object sender, EventArgs e)
         {
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.tbUserName.Text = "0201300001";
-            this.tbPassword.Text = "123";
             this.rbStudent.Checked = true;
             this.btnCancel.Click += new EventHandler(btnCancel_Click);
             this.btnLogin.Click += new EventHandler(btnLogin_Click);

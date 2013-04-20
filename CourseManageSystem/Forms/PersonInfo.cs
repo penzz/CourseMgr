@@ -6,6 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using CourseManageSystem.Common;
+using CourseManageSystem.Database;
+using System.Linq;
+using System.IO;
+using System.Xml.Linq;
+using System.Data.SqlClient;
 
 namespace CourseManageSystem.Forms
 {
@@ -19,10 +24,16 @@ namespace CourseManageSystem.Forms
 
         void PersonInfo_Load(object sender, EventArgs e)
         {
-            this.studentInfoTableAdapter.Fill(this.courseMgrDataSet.StudentInfo);
+            try
+            {
+                this.selectStudentTableAdapter.Fill(this.courseMgrDataSet.SelectStudent, User.userid);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
             this.btnCommit.Click += new EventHandler(btnCommit_Click);
             this.btnUpdatePhoto.Click += new EventHandler(btnUpdatePhoto_Click);
-            this.useridTextBox.Text = User.userid;
         }
         /// <summary>
         /// 更新个人照片
@@ -46,10 +57,21 @@ namespace CourseManageSystem.Forms
         void btnCommit_Click(object sender, EventArgs e)
         {
             this.Validate();
+
             try
             {
-                this.studentInfoBindingSource.EndEdit();
-                this.tableAdapterManager.UpdateAll(this.courseMgrDataSet);
+                CourseMgrDataContext c = new CourseMgrDataContext();
+                var q = (from t in c.StudentInfo where t.userid == User.userid select t).Single();
+                q.username = this.usernameTextBox.Text.Trim();
+                q.sex = this.sexTextBox.Text.Trim();
+                q.politics = this.politicsTextBox.Text.Trim();
+                q.nation = this.nationTextBox.Text.Trim();
+                q.birthday = this.birthdayDateTimePicker.Value;
+                q.phone = this.phoneTextBox.Text.Trim();
+                q.idcard = this.idcardTextBox.Text.Trim();
+                c.SubmitChanges();
+                string sql = "update StudentInfo set photo=@Photo where userid = '" + User.userid + "'";
+                SaveImage(this.photoPictureBox, sql);
                 ShowMessage("保存成功");
             }
             catch (Exception ex)
@@ -57,6 +79,8 @@ namespace CourseManageSystem.Forms
                 ShowMessage("保存失败：" + ex.Message);
             }
         }
+
+
 
         /// <summary>
         /// 清除图片缓存

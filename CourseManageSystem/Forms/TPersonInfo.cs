@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using CourseManageSystem.Common;
+using System.Data.SqlClient;
+using CourseManageSystem.Database;
+using System.Linq;
 
 namespace CourseManageSystem.Forms
 {
@@ -14,17 +17,22 @@ namespace CourseManageSystem.Forms
         public TPersonInfo()
         {
             InitializeComponent();
-            this.Load+=new EventHandler(TPersonInfo_Load);
+            this.Load += new EventHandler(TPersonInfo_Load);
         }
 
         private void TPersonInfo_Load(object sender, EventArgs e)
         {
             // TODO: 这行代码将数据加载到表“courseMgrDataSet.TeacherInfo”中。您可以根据需要移动或删除它。
-            this.teacherInfoTableAdapter.Fill(this.courseMgrDataSet.TeacherInfo);
+            try
+            {
+                this.selectTeacherTableAdapter.Fill(this.courseMgrDataSet.SelectTeacher, User.userid);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
             this.btnCommit.Click += new EventHandler(btnCommit_Click);
             this.btnUpdatePhoto.Click += new EventHandler(btnUpdatePhoto_Click);
-            this.tuseridTextBox.Text = User.userid;
-
         }
 
         /// <summary>
@@ -51,8 +59,19 @@ namespace CourseManageSystem.Forms
             this.Validate();
             try
             {
-                this.teacherInfoBindingSource.EndEdit();
-                this.tableAdapterManager.UpdateAll(this.courseMgrDataSet);
+                CourseMgrDataContext c = new CourseMgrDataContext();
+                var q = (from t in c.TeacherInfo where t.Tuserid == User.userid select t).Single();
+                q.Tusername = this.tusernameTextBox.Text.Trim();
+                q.Tsex = this.tsexTextBox.Text.Trim();
+                q.Temail = this.temailTextBox.Text.Trim();
+                q.Tphone = this.tphoneTextBox.Text.Trim();
+                q.Tacademic = this.tacademicTextBox.Text.Trim();
+                q.Theader = this.theaderTextBox.Text.Trim();
+                q.Tintro = this.tintroTextBox.Text.Trim();
+                q.Tbirthday = this.tbirthdayDateTimePicker.Value;
+                c.SubmitChanges();
+                string sql = "update TeacherInfo set Tphoto=@Photo where Tuserid = '" + User.userid + "'";
+                SaveImage(this.tphotoPictureBox, sql);
                 ShowMessage("保存成功");
             }
             catch (Exception ex)
